@@ -116,18 +116,19 @@ body{
 
 .header{
   width: 100%;
-  height: 55px;;
+  height: 57px;;
   position: fixed;
+  top: 0px;
   display: flex;
-  /* background-color: red; */
+  background-color: rgba(255,255,255,0.8);
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
-  opacity: 0;
+  opacity: 1;
 }
 .headerMaterial{
   width: 100%;
-  height: 53px;
+  height: 50px;
   /* background-color: green; */
   display: flex;
   flex-direction: row;
@@ -136,7 +137,7 @@ body{
 }
 .logo {
   line-height: 53px;
-  font-size: 44px;
+  font-size: 36px;
   margin-right: auto;
   margin-left: 25px;
 }
@@ -145,7 +146,7 @@ body{
   display: block;
   background-color: #516fcb;
   height: 2px;
-  width: 200px;
+  width: 220px;
   position: relative;
   bottom: 25px;
   right: 10px;
@@ -161,6 +162,9 @@ body{
 .scrollTracker {
   width: 0%;;
   height: 2px;
+  margin-top: 2px;
+  margin-right: auto;
+  margin-left: 0px;
   background-color: rgba(25,31,36,1);
 }
 /* ---------------------------- */
@@ -449,3 +453,152 @@ body{
   padding-bottom: 60px;
 }
 /* -------------------------------------------------------------- */
+.contactPage {
+  padding-bottom: 130px;
+  overflow-x: hidden;
+}
+.cornerCutContainer{
+  width: 85%;
+  margin: auto;
+  margin-top: 80px;
+  padding: 40px;
+}
+.cornerCutInvert {
+  transform: rotate(180deg);
+  margin-left: auto;
+  margin-right: 0px;
+}
+.cornerCut {
+  height: 100px;
+  width: 5px;
+  background-color: rgba(25,31,36,1);
+  position: relative;
+  transition: 0.2s ease-out;
+}
+.cornerCut::after {
+  content: '';
+  transition: 0.2s ease-out;
+  width: 100px;
+  height: 5px;
+  background-color: rgba(25,31,36,1);;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+/* .cornerCutContainer:hover .cornerCut {
+  height: 140px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.cornerCutContainer:hover .cornerCut::after {
+  width: 140px;
+} */
+.contactDetailContainer {
+  width: 60%;
+  height: auto;
+  margin: auto;
+}
+.contactCardTitle {
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.contactField {
+  width: 100%;
+  min-height: 40px;
+  max-height: auto;
+  font-size: 15px;
+  margin: auto;
+  margin-top: 10px;
+  border: 3px solid rgba(25, 31, 36, 1);
+  line-height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.contactFieldName {
+  color: #516fcb;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-left: 10px;
+}
+.contactFieldAnswer {
+  line-height: 10px;
+  margin-left: 10px;
+}
+.socialContactContainer {
+   width: calc(100% + 28px);
+   height: 60px;
+   display: flex;
+   flex-direction: row;
+   max-height: auto;
+   justify-content: space-around;
+   align-items: center;
+   margin-top: 40px;
+   flex-wrap: wrap;
+
+}
+.socialContact {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(25, 31, 36, 1);
+  color: rgba(25, 31, 36, 1);
+  display: flex;
+  font-size: 18px;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: 0.2s ease-out;
+}
+.socialContact:hover{
+  background-color:  rgba(25, 31, 36, 1);
+  color: white;
+}
+
+/* ------------------------------------------------- */
+
+.navbar{
+  width: 450px;
+  height: 70px;
+  background-color: rgba(248, 248, 248, 0.9);
+  /* background-color: #e6e6e6; */
+  box-shadow: 0px 0px 30px 5px rgba(0,0,0,0.4);
+  position: fixed;
+  bottom: 0%;
+  left: calc(50% - 225px);
+  transform: scale(0);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s ease-out;
+}
+.navbarElement {
+  width: 20%;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 0.1s ease-out;
+  cursor: pointer;
+}
+.navbarElement:hover{
+  background-color: #516fcb;
+  color: white;
+}
+.navbarElementLeft {
+  border-radius: 10px 0px 0px 10px;
+}
+.navbarElementRight {
+  border-radius: 0px 10px 10px 0px;
+}
+.navbarElementIcon {
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+.navbarElementContent {
+  text-transform: uppercase;
+  margin-top: 2px;
+}

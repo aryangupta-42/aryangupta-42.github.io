@@ -1,6 +1,35 @@
+function openNavbar() {
+  $('.navbar').css({
+    'transform': 'scale(1)',
+    'bottom': '8%',
+  })
+}
+function closeNavbar() {
+  $('.navbar').css({
+    'transform': 'scale(0)',
+    'bottom': '0%',
+  })
+}
+function checkScrollDirection(stOrig, stNew) {
+  if( stNew > stOrig) {
+    return 1
+  } else {
+    return 0
+  }
+}
 $(document).ready(function() {
   $('.page').css({
     'top': $(window).height(),
+  });
+  var scrollTopOrig = 0;
+  $(document).scroll(function(){
+    var scrollTopNew = $(document).scrollTop();
+    if (checkScrollDirection(scrollTopOrig, scrollTopNew)) {
+      closeNavbar();
+    } else {
+      openNavbar();
+    }
+    scrollTopOrig = scrollTopNew;
   })
   $('.tile').click(function() {
   	let title = $(this).find('.workTitle').html();
