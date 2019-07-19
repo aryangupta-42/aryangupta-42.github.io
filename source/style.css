@@ -124,7 +124,8 @@ body{
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
-  opacity: 1;
+  opacity: 0;
+  transition: 0.2s ease-out;
 }
 .headerMaterial{
   width: 100%;
@@ -581,8 +582,9 @@ body{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: 0.1s ease-out;
+  transition: 0.3s ease-out;
   cursor: pointer;
+  z-index: 10;
 }
 .navbarElement:hover{
   background-color: #516fcb;
@@ -601,4 +603,13 @@ body{
 .navbarElementContent {
   text-transform: uppercase;
   margin-top: 2px;
+}
+.navTracker {
+  background-color: #516fcb;
+  position: absolute;
+  z-index: 0;
+  transition:  0.3s;
+}
+.navSelected {
+  color: white;
 }
