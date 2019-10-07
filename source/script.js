@@ -10,6 +10,22 @@ function closeNavbar() {
     'bottom': '0%',
   })
 }
+function closeLoader() {
+  $('.bodyOverlay').css({
+    'opacity': '0',
+  });
+  $('.workLoaderDetailContainer').scrollTop(0);
+  $('.workLoaderContainer').css({
+    'opacity': '0',
+    'transform': 'translateY(20px)',
+  })
+  setTimeout(function(){
+    $('.bodyOverlay').css({
+      'display': 'none',
+    })
+  }, 200)
+  $('.workLoaderImg').find('img').attr('src', "");
+}
 function checkScrollDirection(stOrig, stNew) {
   if( stNew > stOrig) {
     return 1
@@ -56,15 +72,89 @@ function offsetPage(page) {
   return $(page).offset().top;
 }
 
+function appear(element) {
+  $(element).css({
+    'opacity': '1',
+    'transform': 'translateY(0)',
+  })
+}
+
 $(document).ready(function() {
+
+  setTimeout(function() {
+
+  })
+  var a = 0, alen = 110, k=0;
+  function loadAnim() {
+    if( a<=  100) {
+      k = a;
+    }
+    $('.loadingPageBack').css('width', a + '%');
+    $('.loadingPageBack').css('left', (50 - k/2) + '%');
+    a++;
+    if( a < alen ){
+        setTimeout( loadAnim, 15);
+    }
+  }
+  loadAnim();
+
+  setTimeout(function() {
+    $('.loadingPage').css({
+      'opacity': '0',
+      'transform': 'translateY(-30px)',
+    });
+    setTimeout(function() {
+      $('.loadingPage').css('display', 'none');
+    }, 205);
+    setTimeout(function() {
+      appear('.meImg');
+    }, 400)
+
+    var titleString = "Hi, I'm Aryan Gupta";
+    var displayTitleString = [];
+
+    var subTitleString = "Designer | Developer";
+    var displaySubTitleString = [];
+
+    var i = 0, ilen = titleString.length;
+    function nameAnimate() {
+        displayTitleString.push(titleString[i]);
+        $('.detName').html(displayTitleString);
+        i++;
+        if( i < ilen ){
+            setTimeout( nameAnimate, 100 );
+        }
+    }
+    nameAnimate();
+    setTimeout(function() {
+      var j = 0, jlen = subTitleString.length;
+      function subAnim() {
+        displaySubTitleString.push(subTitleString[j]);
+        $('.detCaption').html(displaySubTitleString);
+        j++;
+        if( j < jlen ){
+          setTimeout( subAnim, 50 );
+        }
+      }
+      subAnim();
+      setTimeout(function() {
+        appear('.learnBtn');
+      }, 50*jlen);
+    }, 102*ilen);
+  }, 20*alen + 800)
+
+
+
   $('.page').css({
     'top': $(window).height(),
   });
+
   var scrollTopOrig = 0;
   let documentHeight = $('.contactPage').offset().top - $('.landingPage').height() + 100; // + 270 for end scroll
   $(document).scroll(function(){
+
     var scrollTopNew = $(document).scrollTop();
-    var percentageScroll = ((scrollTopNew - $('.landingPage').height() + 100) / documentHeight)*100;
+    var percentageScroll = ((scrollTopNew - $('.landingPage').height() + 55) / documentHeight)*100;
     if(scrollTopNew >= $('.aboutPage').offset().top/2 - 100) {
       openNavbar();
       $('.header').css('opacity', '1');
@@ -72,6 +162,7 @@ $(document).ready(function() {
       closeNavbar();
       $('.header').css('opacity', '0');
     }
+
     $('.scrollTracker').css('width', percentageScroll + "%");
     scrollTopOrig = scrollTopNew;
 
@@ -89,6 +180,7 @@ $(document).ready(function() {
 
   })
   $('.tile').click(function() {
+    $('.workLoaderDetailContainer').scrollTop(0);
   	let title = $(this).find('.workTitle').html();
   	let startMonth = $(this).find('.workDurationStartMonth').html();
   	let startYear = $(this).find('.workDurationStartYear').html();
@@ -106,7 +198,16 @@ $(document).ready(function() {
   	$('.bodyOverlay').css({
   		'display': 'flex',
   	})
-    $('.workLoader').css('height', ($('.workLoaderContainer').height()*95)/100 + 'px');
+    setTimeout(function(){
+      $('.bodyOverlay').css({
+        'opacity': '1',
+      });
+      $('.workLoaderContainer').css({
+        'opacity': '1',
+        'transform': 'translateY(0)',
+      })
+    }, 1)
+    $('.workLoader').css('height', ($('.workLoaderContainer').height()*100)/100 + 'px');
   	$('.workLoaderTitle').html(title);
   	$('.workLoaderStartMonth').html(startMonth);
   	$('.workLoaderStartYear').html(startYear);
@@ -124,10 +225,7 @@ $(document).ready(function() {
     })
   })
   $('.workLoaderCloser').click(function(){
-    $('.bodyOverlay').css({
-      'display': 'none',
-    })
-    $('.workLoaderImg').find('img').attr('src', "");
+    closeLoader();
   });
 
   $('.navbarHome').click(function(){
