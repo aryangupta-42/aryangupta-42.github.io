@@ -80,7 +80,7 @@ function appear(element) {
 }
 
 $(document).ready(function() {
-
+  alert("hi");
   setTimeout(function() {
 
   })
