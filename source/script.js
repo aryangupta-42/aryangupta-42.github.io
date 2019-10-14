@@ -80,7 +80,7 @@ function appear(element) {
 }
 
 $(document).ready(function() {
-  alert("hi");
+
   setTimeout(function() {
 
   })
@@ -99,13 +99,13 @@ $(document).ready(function() {
   loadAnim();
 
   setTimeout(function() {
-    $('.loadingPage').css({
+    $('.loadingPage2').css({
       'opacity': '0',
-      'transform': 'translateY(-30px)',
+      'transform': 'translateY(-60px)',
     });
     setTimeout(function() {
-      $('.loadingPage').css('display', 'none');
-    }, 205);
+      $('.loadingPage2').css('display', 'none');
+    }, 305);
     setTimeout(function() {
       appear('.meImg');
     }, 400)
