@@ -14,6 +14,12 @@ function closeLoader() {
   $('.bodyOverlay').css({
     'opacity': '0',
   });
+  const scrollY = $('body').css('top');
+  $('body').css({
+    'position': 'absolute',
+    'top': '',
+  })
+  window.scrollTo(0, parseInt(scrollY || '0') * -1);
   $('.workLoaderDetailContainer').scrollTop(0);
   $('.workLoaderContainer').css({
     'opacity': '0',
@@ -80,7 +86,7 @@ function appear(element) {
 }
 
 $(document).ready(function() {
-
+  // $('html, body').scrollTop(100);
   setTimeout(function() {
 
   })
@@ -181,6 +187,11 @@ $(document).ready(function() {
   })
   $('.tile').click(function() {
     $('.workLoaderDetailContainer').scrollTop(0);
+    $('body').css({
+      'position': 'fixed',
+      'top': '-' + $(window).scrollTop() + 'px',
+    });
+    // alert($(window).scrollTop())
   	let title = $(this).find('.workTitle').html();
   	let startMonth = $(this).find('.workDurationStartMonth').html();
   	let startYear = $(this).find('.workDurationStartYear').html();
@@ -193,6 +204,10 @@ $(document).ready(function() {
     for (i=0; i < imgNum; i++) {
       imgArr.push($(this).find('.workImagesContainer').find('img:eq(' + i + ')').attr('src'));
     }
+    $('.workLoaderImg img').click(function() {
+      var url = $(this).attr('src');
+      window.open(url, '_blank');
+    })
     // alert(imgArr[2].attr('src'));
     var imgTracker = 0;
   	$('.bodyOverlay').css({
@@ -243,7 +258,7 @@ $(document).ready(function() {
   $('.navbarContact').click(function(){
     navToPage('.contactPage');
   })
-  $('.contactLandBtn, .headerBtn').click(function(){
+  $('.contactLandBtn').click(function(){
     navToPage('.contactPage', 0, 1);
   })
 
