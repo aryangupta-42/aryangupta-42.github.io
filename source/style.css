@@ -321,8 +321,8 @@ body{
   padding-bottom: 40px;
   position: relative;
   background-color: white;
+  /* transition: 0.1s ease-out; */
 }
-
 .pageTitle {
   font-size: 4rem;
   font-family: 'Roboto', sans-serif;;
@@ -353,6 +353,40 @@ body{
   font-size: 1.1rem;
   margin-top: 60px;
 }
+
+.aboutPage {
+  background-image: url('../images/work/aeross/sum42.jpg');
+  background-size: cover;
+  background-position: center bottom;
+  padding: 0px;
+  color: white;
+  position: relative;
+}
+.aboutCover {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 100px;
+  text-align: left;
+  background-color: rgba(0,0,0,0.55);
+}
+.aboutPage .pageTitle {
+  margin-left: 80px;
+  margin-right: auto;
+  text-align: left;
+}
+.aboutPage .pageTitle::after {
+  margin-left: 0px;
+  margin-right: auto;
+  left: -25px;
+}
+.aboutPage .textBox {
+  margin-left: 80px;
+  margin-right: auto;
+  text-align: left;
+}
+
+
+
 .boxContainer {
   width: 70%;
   height: auto;
@@ -407,6 +441,21 @@ body{
   text-transform: uppercase;
 }
 /* ------------------------------------------------ */
+.educationPage {
+  padding-bottom: 80px;
+}
+.workPage {
+  background-image: url('../images/work/work2.jpg');
+  background-size: cover;
+  background-position: center bottom;
+  /* background: rgb(165,205,241);
+  background: radial-gradient(circle, rgba(165,205,241,1) 0%, rgba(120,153,217,1) 7%, rgba(122,153,215,1) 12%, rgba(58,140,212,1) 18%, rgba(4,183,228,1) 37%, rgba(88,99,205,1) 48%, rgba(87,80,181,1) 59%, rgba(94,102,223,1) 77%, rgba(76,70,231, 1) 91%); */
+  /* background: rgb(238,174,202);
+background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */
+}
+.workPage .pageTitle {
+  color: white;
+}
 
 .tileContainer{
   width: 60%;
@@ -416,11 +465,14 @@ body{
   flex-wrap: wrap;
   margin-top: 100px;
   align-items: center;
-  /* background-color: red; */
-  /* box-shadow: 0px 0px 35px 0px rgba(0,0,0,0.3); */
-  border-radius: 40px;
+  /* background-color: rgba(0,0,0,0.5); */
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0px 0px 35px 0px rgba(0,0,0,0.2);
+  border-radius: 10px;
   justify-content: center;
-  padding: 50px;
+  padding: 40px;
   transition: 0.2s ease-out;
 }
 

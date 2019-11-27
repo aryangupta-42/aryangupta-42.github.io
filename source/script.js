@@ -174,6 +174,10 @@ $(document).ready(function() {
 
     if (scrollTopNew <= offsetPage('.aboutPage')/2 + 200) {
       navTrack('0', '.navbarHome', 1);
+      $('.landingPage').css({
+        // 'opacity': (1 - (scrollTopNew / (offsetPage('.aboutPage') * 1))),
+        'transform': 'translateY(-'  + (scrollTopNew / 7) + 'px)',
+      })
     } else if (scrollTopNew <= (offsetPage('.educationPage') - 200)) {
       navTrack('20%', '.navbarAbout');
     } else if (scrollTopNew <= (offsetPage('.workPage') - 150)) {
@@ -185,6 +189,19 @@ $(document).ready(function() {
     }
 
   })
+
+  // $(document).scroll(function() {
+  //   var st = $(document).scrollTop();
+  //
+  //   if(st >=  offsetPage('.aboutPage')) {
+  //     $('.aboutPage').css({
+  //       'transform': 'scale(' + (1 - ((st - offsetPage('.aboutPage')) / (offsetPage('.educationPage') - offsetPage('.aboutPage')))) + ')',
+  //     });
+  //   }
+  //   // console.log((1 - ((st - offsetPage('.aboutPage')) / (offsetPage('.educationPage') - offsetPage('.aboutPage')))))
+  //   console.log(offsetPage('.aboutPage'))
+  //
+  // })
   $('.tile').click(function() {
     $('.workLoaderDetailContainer').scrollTop(0);
     $('body').css({
