@@ -356,18 +356,18 @@ body{
 
 .aboutPage {
   background-image: url('../images/work/aeross/sum42.jpg');
-  background-size: cover;
-  background-position: center bottom;
+  background-size: 100% auto;
+  background-position:0% 0%;
   padding: 0px;
   color: white;
   position: relative;
 }
-.aboutCover {
+.aboutCover, .workCover {
   width: 100%;
   height: 100%;
   padding-bottom: 100px;
   text-align: left;
-  background-color: rgba(0,0,0,0.55);
+  background-color: rgba(0,0,0,0.50);
 }
 .aboutPage .pageTitle {
   margin-left: 80px;
@@ -445,34 +445,34 @@ body{
   padding-bottom: 80px;
 }
 .workPage {
-  background-image: url('../images/work/work2.jpg');
-  background-size: cover;
-  background-position: center bottom;
+  background-image: url('../images/work/workBackground/7.jpg');
+  background-size: 100% auto;
+  /* background-size: cover; */
+  background-position: 50% 0%;
   /* background: rgb(165,205,241);
   background: radial-gradient(circle, rgba(165,205,241,1) 0%, rgba(120,153,217,1) 7%, rgba(122,153,215,1) 12%, rgba(58,140,212,1) 18%, rgba(4,183,228,1) 37%, rgba(88,99,205,1) 48%, rgba(87,80,181,1) 59%, rgba(94,102,223,1) 77%, rgba(76,70,231, 1) 91%); */
   /* background: rgb(238,174,202);
 background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */
 }
 .workPage .pageTitle {
-  color: white;
+  color: black;
 }
 
 .tileContainer{
-  width: 60%;
+  width: 750px;
   height: auto;
   margin: auto;
   display: flex;
   flex-wrap: wrap;
   margin-top: 100px;
   align-items: center;
-  /* background-color: rgba(0,0,0,0.5); */
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0px 0px 35px 0px rgba(0,0,0,0.2);
   border-radius: 10px;
-  justify-content: center;
-  padding: 40px;
+  justify-content: flex-start;
+  /* padding: 80px; */
   transition: 0.2s ease-out;
 }
 
@@ -483,51 +483,33 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 
   cursor: pointer;
   overflow: hidden;
   transition: 0.2s;
-  /* filter: grayscale(0); */
 }
 .tile .view img{
   width: 250px;
   height: 250px;
   position: absolute;
-  /* left: 0px; */
-  /* top: 0px; */
+}
+.tileOverlay {
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  line-height: 300px;
+  text-align: center;
+  font-size: 20px;
+  color: white;
+  opacity: 0;
+  transition: 0.15s ease-out;
 }
 .tile .hidden {
   display: none;
 }
-.tile:hover {
-  /* border-radius: 20px; */
-  box-shadow: 0px 0px 40px 5px rgba(0,0,0,0.3);
-  /* filter: grayscale(0); */
+.tile:hover .tileOverlay {
+  opacity: 1;
+  line-height: 250px;
 }
-.tileContainer:hover {
-  /* box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.3); */
-}
-.aerossTile .view img{
-  /* right: -40px; */
-}
-.techfestTile .view img{
-  /* right: -40px; */
-}
-
-
-/* .tile:hover .overlay{
-  opacity: 0.5;
-}
-.overlay{
-  width:250px;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  height:250px;
-  background-color: rgba(0,0,0,1);
-  opacity: 0;
-  transition: 0.1s;
-} */
 
 /* ----------------------------------------------------------------- */
 .bodyOverlay {
