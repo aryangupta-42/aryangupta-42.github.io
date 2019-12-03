@@ -350,7 +350,7 @@ body{
   height: auto;
   margin: auto;
   text-align: justify;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   margin-top: 60px;
 }
 
@@ -442,12 +442,13 @@ body{
 }
 /* ------------------------------------------------ */
 .educationPage {
-  padding-bottom: 80px;
+  padding-bottom: 120px;
 }
 .workPage {
   background-image: url('../images/work/workBackground/7.jpg');
   background-size: 100% auto;
   /* background-size: cover; */
+  padding-bottom: 100px;
   background-position: 50% 0%;
   /* background: rgb(165,205,241);
   background: radial-gradient(circle, rgba(165,205,241,1) 0%, rgba(120,153,217,1) 7%, rgba(122,153,215,1) 12%, rgba(58,140,212,1) 18%, rgba(4,183,228,1) 37%, rgba(88,99,205,1) 48%, rgba(87,80,181,1) 59%, rgba(94,102,223,1) 77%, rgba(76,70,231, 1) 91%); */
@@ -840,10 +841,11 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 
   margin-top: 2px;
 }
 .navTracker {
-  background-color: rgba(64, 102, 220, 0.8);
+  /* background-color: rgba(64, 102, 220, 0.8); */
   /* backdrop-filter: blur(5px); */
   /* background-color: #1e5eff; */
   /* background-image: radial-gradient(to right, #Abdcff, #0396ff); */
+  background-color: #4066dc;
   position: absolute;
   z-index: 0;
   transition:  0.3s;
