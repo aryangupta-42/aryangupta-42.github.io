@@ -120,6 +120,27 @@ body{
   background-color: #516fcb;
   color: white;
 }
+
+.bookPart {
+  height: 80%;
+  background-color: #e5e5e5;
+  z-index: -10;
+  position: absolute;
+  top: 0px;
+}
+.p1{
+  width: calc(30% + 10px);
+  left: 0px;
+  border-radius: 0px 0px 100px 0px;
+}
+.p2 {
+  width: calc(70% + 10px);
+  right: 0px;
+  border-radius: 0px 0px 0px 100px;
+}
+
+
+
 .imgContainer {
   width: 35%;
   display: flex;
@@ -211,7 +232,7 @@ body{
   text-decoration: none;
   color: rgba(25,31,36,1);
   border-color: rgba(25,31,36,1);
-  background: #FFF;
+  background: transparent;
 }
 
 .btn span

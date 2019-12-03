@@ -11,7 +11,29 @@ function closeNavbar() {
   })
 }
 function changeHeaderColor(param) {
-  if(param) {
+  if(param == 10) {
+    $('.header').css({
+      'background-color': 'rgba(229,229,229,0.8)',
+      'color': 'black',
+    })
+    $('.scrollTracker').css('background-color', 'rgba(25,31,36,1)');
+    $('.headerBtn').css({
+      'border': '2px solid rgba(25,31,36,1)',
+      'color': 'rgba(25,31,36,1)'
+    })
+    $('.headerBtn').hover(function() {
+      $('.headerBtn').css({
+        'background-image': 'linear-gradient(to right, rgba(25,31,36,1), rgba(65,71,76,0.9))',
+        'color': 'white'
+      })
+    }, function() {
+      $('.headerBtn').css({
+        'background-image': 'none',
+        'background-color': 'transparent',
+        'color': 'rgba(25, 31, 36, 1)'
+      })
+    })
+  }else if(param) {
     $('.header').css({
       'background-color': 'rgba(255,255,255,0.8)',
       'color': 'black',
@@ -245,7 +267,7 @@ $(document).ready(function() {
         // 'opacity': (1 - (scrollTopNew / (offsetPage('.aboutPage') * 1))),
         'transform': 'translateY(-'  + (scrollTopNew / 4) + 'px)',
       })
-      changeHeaderColor(1);
+      changeHeaderColor(10);
     } else if (scrollTopNew <= (offsetPage('.educationPage') - 60)) {
       changeHeaderColor(0);
     } else if (scrollTopNew <= (offsetPage('.workPage') - 60)) {
