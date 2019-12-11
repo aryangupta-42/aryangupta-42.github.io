@@ -12,28 +12,49 @@ function closeNavbar() {
 }
 function changeHeaderColor(param) {
   if(param == 10) {
+    // $('.header').css({
+    //   'background-color': 'rgba(229,229,229,0.8)',
+    //   'color': 'black',
+    // })
+    // $('.scrollTracker').css('background-color', 'rgba(25,31,36,1)');
+    // $('.headerBtn').css({
+    //   'border': '2px solid rgba(25,31,36,1)',
+    //   'color': 'rgba(25,31,36,1)'
+    // })
+    // $('.headerBtn').hover(function() {
+    //   $('.headerBtn').css({
+    //     'background-image': 'linear-gradient(to right, rgba(25,31,36,1), rgba(65,71,76,0.9))',
+    //     'color': 'white'
+    //   })
+    // }, function() {
+    //   $('.headerBtn').css({
+    //     'background-image': 'none',
+    //     'background-color': 'transparent',
+    //     'color': 'rgba(25, 31, 36, 1)'
+    //   })
+    // })
     $('.header').css({
-      'background-color': 'rgba(229,229,229,0.8)',
-      'color': 'black',
+      'background-color': 'rgba(0,0,0,0.2)',
+      'color': 'white',
     })
-    $('.scrollTracker').css('background-color', 'rgba(25,31,36,1)');
+    $('.scrollTracker').css('background-color', 'rgba(255,255,255,0.8)');
     $('.headerBtn').css({
-      'border': '2px solid rgba(25,31,36,1)',
-      'color': 'rgba(25,31,36,1)'
+      'border': '2px solid white',
+      'color': 'white'
     })
     $('.headerBtn').hover(function() {
       $('.headerBtn').css({
-        'background-image': 'linear-gradient(to right, rgba(25,31,36,1), rgba(65,71,76,0.9))',
-        'color': 'white'
+        'background-image': 'none',
+        'background-color': 'white',
+        'color': 'rgba(25, 31, 36, 1)'
       })
     }, function() {
       $('.headerBtn').css({
-        'background-image': 'none',
         'background-color': 'transparent',
-        'color': 'rgba(25, 31, 36, 1)'
+        'color': 'white'
       })
     })
-  }else if(param) {
+  } else if(param) {
     $('.header').css({
       'background-color': 'rgba(255,255,255,0.8)',
       'color': 'black',
@@ -83,6 +104,7 @@ function closeLoader() {
   $('.bodyOverlay').css({
     'opacity': '0',
   });
+  // to prevent automatic scrolling when clicking on work tile.
   const scrollY = $('body').css('top');
   $('body').css({
     'position': 'absolute',
@@ -265,7 +287,8 @@ $(document).ready(function() {
     if (scrollTopNew <= offsetPage('.aboutPage') - 60) {
       $('.landingPage').css({
         // 'opacity': (1 - (scrollTopNew / (offsetPage('.aboutPage') * 1))),
-        'transform': 'translateY(-'  + (scrollTopNew / 4) + 'px)',
+        // parallax effect for the landing page - still buggy
+        // 'transform': 'translateY(-'  + (scrollTopNew / 4) + 'px)',
       })
       changeHeaderColor(10);
     } else if (scrollTopNew <= (offsetPage('.educationPage') - 60)) {
@@ -281,36 +304,23 @@ $(document).ready(function() {
       $('.aboutPage').css({
         'background-position': '0% ' + (15 + ((1.2 * scrollTopNew / offsetPage('.educationPage')) * 100)) + '%'
       })
-      // console.log((15 + ((scrollTopNew / offsetPage('.educationPage')) * 100)));
     }
 
-    if (scrollTopNew <= (offsetPage('.contactPage') - 60)) {
-      $('.workPage').css({
-        'background-position': '50% ' + (50 + (( 1.4 * (scrollTopNew - offsetPage('.workPage')) / offsetPage('.contactPage')) * 100)) + '%'
-      })
-      // console.log((15 + ((scrollTopNew / offsetPage('.cont')) * 100)));
-    }
+    // parallax effect for the work page - still buggy
+    // if (scrollTopNew <= (offsetPage('.contactPage') - 60)) {
+    //   $('.workPage').css({
+    //     'background-position': '50% ' + (50 + (( 1.4 * (scrollTopNew - offsetPage('.workPage')) / offsetPage('.contactPage')) * 100)) + '%'
+    //   })
+    // }
   })
 
-  // $(document).scroll(function() {
-  //   var st = $(document).scrollTop();
-  //
-  //   if(st >=  offsetPage('.aboutPage')) {
-  //     $('.aboutPage').css({
-  //       'transform': 'scale(' + (1 - ((st - offsetPage('.aboutPage')) / (offsetPage('.educationPage') - offsetPage('.aboutPage')))) + ')',
-  //     });
-  //   }
-  //   // console.log((1 - ((st - offsetPage('.aboutPage')) / (offsetPage('.educationPage') - offsetPage('.aboutPage')))))
-  //   console.log(offsetPage('.aboutPage'))
-  //
-  // })
   $('.tile').click(function() {
     $('.workLoaderDetailContainer').scrollTop(0);
+    // to prevent automatic scrolling when clicking on work tile
     $('body').css({
       'position': 'fixed',
       'top': '-' + $(window).scrollTop() + 'px',
     });
-    // alert($(window).scrollTop())
   	let title = $(this).find('.workTitle').html();
   	let startMonth = $(this).find('.workDurationStartMonth').html();
   	let startYear = $(this).find('.workDurationStartYear').html();
@@ -323,11 +333,6 @@ $(document).ready(function() {
     for (i=0; i < imgNum; i++) {
       imgArr.push($(this).find('.workImagesContainer').find('img:eq(' + i + ')').attr('src'));
     }
-    $('.workLoaderImg img').click(function() {
-      var url = $(this).attr('src');
-      window.open(url, '_blank');
-    })
-    // alert(imgArr[2].attr('src'));
     var imgTracker = 0;
   	$('.bodyOverlay').css({
   		'display': 'flex',
@@ -361,6 +366,10 @@ $(document).ready(function() {
   $('.workLoaderCloser').click(function(){
     closeLoader();
   });
+ $('.workLoaderImg img').click(function() {
+    var url = $(this).attr('src');
+    window.open(url, '_blank');
+  })
 
   $('.navbarHome').click(function(){
     navToPage('.landingPage', 1);
