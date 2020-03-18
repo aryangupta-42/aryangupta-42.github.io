@@ -1,3 +1,4 @@
+
 function openNavbar() {
   $('.navbar').css({
     'transform': 'scale(1)',
@@ -12,27 +13,6 @@ function closeNavbar() {
 }
 function changeHeaderColor(param) {
   if(param == 10) {
-    // $('.header').css({
-    //   'background-color': 'rgba(229,229,229,0.8)',
-    //   'color': 'black',
-    // })
-    // $('.scrollTracker').css('background-color', 'rgba(25,31,36,1)');
-    // $('.headerBtn').css({
-    //   'border': '2px solid rgba(25,31,36,1)',
-    //   'color': 'rgba(25,31,36,1)'
-    // })
-    // $('.headerBtn').hover(function() {
-    //   $('.headerBtn').css({
-    //     'background-image': 'linear-gradient(to right, rgba(25,31,36,1), rgba(65,71,76,0.9))',
-    //     'color': 'white'
-    //   })
-    // }, function() {
-    //   $('.headerBtn').css({
-    //     'background-image': 'none',
-    //     'background-color': 'transparent',
-    //     'color': 'rgba(25, 31, 36, 1)'
-    //   })
-    // })
     $('.header').css({
       'background-color': 'rgba(0,0,0,0.2)',
       'color': 'white',
@@ -176,20 +156,7 @@ function appear(element) {
   })
 }
 
-$(document).ready(function() {
-
-  if($(window).width() >= 850) {
-    $('.tileContainer').css('width', '750px');
-  } else if($(window).width() < 850 && $(window).width() >= 600) {
-    $('.tileContainer').css('width', '500px');
-  } else if ($(window).width() < 600) {
-    $('.tileContainer').css('width', '250px');
-  }
-
-  // $('html, body').scrollTop(100);
-  setTimeout(function() {
-
-  })
+$(window).on('load',function() {
   var a = 0, alen = 110, k=0;
   function loadAnim() {
     if( a<=  100) {
@@ -248,8 +215,18 @@ $(document).ready(function() {
       }, 50*jlen);
     }, 102*ilen);
   }, 20*alen + 800)
+})
 
+$(document).ready(function() {
+  if($(window).width() >= 850) {
+    $('.tileContainer').css('width', '750px');
+  } else if($(window).width() < 850 && $(window).width() >= 600) {
+    $('.tileContainer').css('width', '500px');
+  } else if ($(window).width() < 600) {
+    $('.tileContainer').css('width', '250px');
+  }
 
+  // $('html, body').scrollTop(100);
 
   $('.page').css({
     'top': $(window).height(),
@@ -300,7 +277,7 @@ $(document).ready(function() {
     } else {
       changeHeaderColor(1);
     }
-    if (scrollTopNew <= (offsetPage('.educationPage') - 60)) {
+    if (scrollTopNew <= (offsetPage('.educationPage') - 200)) {
       $('.aboutPage').css({
         'background-position': '0% ' + (15 + ((1.2 * scrollTopNew / offsetPage('.educationPage')) * 100)) + '%'
       })
