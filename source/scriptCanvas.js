@@ -1,7 +1,7 @@
 $(document).ready(() => {
     // ----------------- create a shooting star background here ------------------------
     class shootingStar {
-        constructor (param) {
+        constructor(param) {
             this.radius = param.radius;
             this.x = param.x;
             this.xinit = param.x;
@@ -34,30 +34,30 @@ $(document).ready(() => {
         shootOpGrad: 0.0001,
         shootLength: 250,
         shootErase: 0,
-        genRand: function(i) {
+        genRand: function (i) {
             return (i[0] + (Math.random() * i[1]));
         },
-        genRandCo: function(xarr, yarr) {
+        genRandCo: function (xarr, yarr) {
             let x = Math.floor(xarr[0] + (Math.random() * xarr[1]))
             let y = Math.floor(yarr[0] + (Math.random() * yarr[1]))
             return [x, y];
         },
-        setSize: function() {
+        setSize: function () {
             this.can.width = $(window).width();
             this.can.height = $('.workPage').height() + 200;
         },
-        setBg: function() {
+        setBg: function () {
             this.ctx.fillStyle = this.bg;
             // this.ctx.fillStyle = '#130f40';
             this.ctx.fillRect(0, 0, $(window).width(), $('.workPage').height() + 200);
         },
-        drawStar: function(x, y, rad, col) {
+        drawStar: function (x, y, rad, col) {
             this.ctx.beginPath();
             this.ctx.fillStyle = col;
-            this.ctx.arc(x, y, rad, 0, 2*Math.PI);
+            this.ctx.arc(x, y, rad, 0, 2 * Math.PI);
             this.ctx.fill();
         },
-        init: function() {
+        init: function () {
             this.el = $('#can');
             this.can = this.el[0];
             this.el.css({
@@ -68,7 +68,7 @@ $(document).ready(() => {
             this.setSize();
             this.setBg();
         },
-        renderStars: function() {
+        renderStars: function () {
             // this.init();
             for (let i = 0; i < this.starNo; i++) {
                 let [x, y] = this.genRandCo(this.xcor, this.ycor);
@@ -77,12 +77,12 @@ $(document).ready(() => {
                 this.drawStar(x, y, r, 'rgba(240, 240, 240, ' + op + ')');
             }
         },
-        eraseShooters: function() {
+        eraseShooters: function () {
             let i = space.shootErase;
             let div = Math.sqrt(2);
             let change = space.shootStar[i].speed / div;
             let x, y, radius, opacity;
-            if ( !space.shootStar[i].out ) {
+            if (!space.shootStar[i].out) {
                 x = space.shootStar[i].x;
                 y = space.shootStar[i].y;
                 radius = space.shootStar[i].radius;
@@ -91,34 +91,34 @@ $(document).ready(() => {
                 space.shootStar[i].x = x - change;
                 space.shootStar[i].y = y + change;
             }
-            if ( space.shootStar[i].x < (space.shootStar[i].xinit - space.shootLength) || space.shootStar[i].y > (space.shootStar[i].yinit + space.shootLength) ) {
+            if (space.shootStar[i].x < (space.shootStar[i].xinit - space.shootLength) || space.shootStar[i].y > (space.shootStar[i].yinit + space.shootLength)) {
                 space.shootStar[i].out = true;
             }
             if (space.shootStar[i].out) {
-                space.drawStar(x + 6*change, y - 6*change, radius, 'rgba(245, 245, 245, ' + opacity + ')');
+                space.drawStar(x + 6 * change, y - 6 * change, radius, 'rgba(245, 245, 245, ' + opacity + ')');
                 space.shootErase += 1;
             }
             window.requestAnimationFrame(space.eraseShooters);
         },
-        animShooters: function() {
+        animShooters: function () {
             // space.setBg();
             // space.renderStars();
             // for (let i = 0; i < space.shootNo; i++) {
             let i = space.shootNo;
             let div = Math.sqrt(2);
             let change = space.shootStar[i].speed / div;
-            if ( !space.shootStar[i].out ) {
+            if (!space.shootStar[i].out) {
                 let x = space.shootStar[i].x;
                 let y = space.shootStar[i].y;
                 let radius = space.shootStar[i].radius;
                 let opacity = space.shootStar[i].opacity;
-                space.drawStar(x, y, radius, 'rgba(245, 245, 245, ' + opacity + ')');            
+                space.drawStar(x, y, radius, 'rgba(245, 245, 245, ' + opacity + ')');
                 space.shootStar[i].x = x - change;
                 space.shootStar[i].y = y + change;
                 space.shootStar[i].radius += space.shootRadGrad;
                 space.shootStar[i].opacity += space.shootOpGrad;
             }
-            if ( space.shootStar[i].x < (space.shootStar[i].xinit - space.shootLength + 10) || space.shootStar[i].y > (space.shootStar[i].yinit + space.shootLength - 10) ) {
+            if (space.shootStar[i].x < (space.shootStar[i].xinit - space.shootLength + 10) || space.shootStar[i].y > (space.shootStar[i].yinit + space.shootLength - 10)) {
                 space.shootStar[i].out = true;
             }
             if (space.shootStar[i].out) {
@@ -135,9 +135,9 @@ $(document).ready(() => {
             }
             window.requestAnimationFrame(space.animShooters);
         },
-        renderShooters: function() {
+        renderShooters: function () {
             // for (let i = 0; i < this.shootNo; i++) {
-            let [xt,yt] = this.genRandCo(this.xcorShoot, this.ycorShoot);
+            let [xt, yt] = this.genRandCo(this.xcorShoot, this.ycorShoot);
             let param = {
                 x: xt,
                 y: yt,
@@ -155,7 +155,7 @@ $(document).ready(() => {
     space.renderShooters();
     space.animShooters();
     setTimeout(() => {
-        space.eraseShooters();      
+        space.eraseShooters();
     }, 4000)
 
 })
