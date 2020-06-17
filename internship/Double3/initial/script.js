@@ -34,12 +34,12 @@ function onConnect() {
 
 const startMovement = (timeInms) => {
     DRDoubleSDK.sendCommand("base.travel.start");
-    let mov = setTimeout(() => {
+    setTimeout(() => {
         DRDoubleSDK.sendCommand("base.travel.stop");
     }, timeInms)
 }
 
-$(document).ready(() => {
+$(window).on('load', function () {
     // REQUIRED: Tell d3-api that we're still running ok (faster than every 3000 ms) or the page will be reloaded.
     // !IMPORTANT ------------------
     window.setInterval(() => {
@@ -52,12 +52,12 @@ $(document).ready(() => {
         onConnect();
     });
 
-    let movementTimer;
+    // let movementTimer;
     $('#moveBtn').click(() => {
         $('.alert').html('The robot will now begin to move in 5 seconds<br />please step away');
         $('.alert').css('opacity', '1');
-        clearTimeout(movementTimer);
-        movementTimer = setTimeout(() => {
+        // clearTimeout(movementTimer);
+        setTimeout(() => {
             $('.alert').css('opacity', '0');
             startMovement(2000);
         }, 5000);
