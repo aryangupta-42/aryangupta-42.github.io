@@ -15,7 +15,7 @@ DRDoubleSDK.on("event", (message) => {
 function onConnect() {
     if (DRDoubleSDK.isConnected()) {
         DRDoubleSDK.resetWatchdog();
-
+        alert("The bot is now connected");
         // Subscribe to events that you will process. You can subscribe to more events at any time.
         // DRDoubleSDK.sendCommand("events.subscribe", {
         //     events: [
@@ -33,8 +33,10 @@ function onConnect() {
 }
 
 const startMovement = (timeInms) => {
+    console.log("movement initiated");
     DRDoubleSDK.sendCommand("base.travel.start");
     setTimeout(() => {
+        console.log("movement stopped");
         DRDoubleSDK.sendCommand("base.travel.stop");
     }, timeInms)
 }
