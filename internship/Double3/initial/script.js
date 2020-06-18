@@ -34,11 +34,17 @@ function onConnect() {
 
 const startMovement = (timeInms) => {
     console.log("movement initiated");
-    DRDoubleSDK.sendCommand("base.travel.start");
+    DRDoubleSDK.sendCommand('navigate.enable');
+    var inter = setInterval(() => {
+        DRDoubleSDK.sendCommand('navigate.drive', {
+            throttle: 0.4,
+            turn: 0,
+            powerDrive: false
+        });
+    }, 200)
     setTimeout(() => {
-        console.log("movement stopped");
-        DRDoubleSDK.sendCommand("base.travel.stop");
-    }, timeInms)
+        clearInterval(inter);
+    }, timeInms);
 }
 
 $(window).on('load', function () {
