@@ -1,0 +1,66 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <title>Camera Test</title>
+        <script src="./script.js"></script>
+        <style>
+            * {
+                margin: 0px;
+                padding: 0px;
+            }
+            body {
+                background-color: white;
+            }
+            video {
+                background: black;
+                bottom: 0px;
+                display: block;
+                height: 100%;
+                left: 0px;
+                object-fit: contain;
+                position: fixed;
+                right: 0px;
+                top: 0px;
+                width: 100%;
+            }
+            #info {
+                bottom: 100px;
+                color: red;
+                font-size: 3em;
+                left: 0px;
+                min-height: 100px;
+                position: fixed;
+                text-align: center;
+                width: 100%;
+            }
+            .btn {
+                border: 2px solid #0125b3;
+                color: #0125b3;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 30px;
+                padding: 10px 50px;
+                width: 200px;
+                text-align: center;
+                text-transform: uppercase;
+                cursor: pointer;
+                transition: 0.15s ease-out;
+            }
+            .btn:hover,
+            .btn:focus {
+                background-color: #0125b3;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <video autoplay playsinline muted></video>
+        <div id="info"></div>
+        <div id="stopBtn" class="btn">
+            Stop Camera
+        </div>
+    </body>
+</html>

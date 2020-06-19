@@ -15,7 +15,6 @@ DRDoubleSDK.on("event", (message) => {
 function onConnect() {
     if (DRDoubleSDK.isConnected()) {
         DRDoubleSDK.resetWatchdog();
-        alert("The bot is now connected");
         // Subscribe to events that you will process. You can subscribe to more events at any time.
         // DRDoubleSDK.sendCommand("events.subscribe", {
         //     events: [
@@ -26,49 +25,48 @@ function onConnect() {
 
         // Turn on the screen, but allow the screensaver to kick in later
         DRDoubleSDK.sendCommand("screensaver.nudge");
+        // Enable the camera
+        DRDoubleSDK.sendCommand("camera.enable", { width: 1152, height: 720, template: 'h264ForWebRTC' });
+        // DRDoubleSDK.sendCommand("camera.enable", { width: 1152, height: 720, template: 'v4l2' });
+        // Output from the camera
+        DRDoubleSDK.sendCommand("camera.output", { template: 'v4l2', width: 1152, height: 720 });
 
     } else {
         window.setTimeout(onConnect, 100);
     }
 }
 
-const startMovement = (timeInms) => {
-    console.log("movement initiated");
-    DRDoubleSDK.sendCommand('navigate.enable');
-    var inter = setInterval(() => {
-        DRDoubleSDK.sendCommand('navigate.drive', {
-            throttle: 0.4,
-            turn: 0,
-            powerDrive: false
-        });
-    }, 200)
-    setTimeout(() => {
-        clearInterval(inter);
-    }, timeInms);
+async function getCameraFeed() {
+    // connect to the stream of the camera and display it inside the video element inside html
+    var stream = await navigator.mediaDevices.getUserMedia({ video: true }).catch(e => {
+        document.write(e.message);
+    });
+    var video = document.querySelector("video");
+    var info = document.querySelector("#info");
+    video.srcObject = stream;
+    video.onloadedmetadata = (e) => {
+        info.innerText = video.videoWidth + " x " + video.videoHeight;
+        info.style.zIndex = 2;
+    };
 }
 
-$(window).on('load', function () {
-    // REQUIRED: Tell d3-api that we're still running ok (faster than every 3000 ms) or the page will be reloaded.
-    // !IMPORTANT ------------------
+function stopCamera() {
+    DRDoubleSDK.sendCommand("camera.disable");
+}
+
+$(window).on('load', () => {
     window.setInterval(() => {
         DRDoubleSDK.resetWatchdog();
     }, 2000);
 
-    // DRDoubleSDK 
     onConnect();
     DRDoubleSDK.on("connect", () => {
         onConnect();
     });
 
-    // let movementTimer;
-    $('#moveBtn').click(() => {
-        $('.alert').html('The robot will now begin to move in 5 seconds<br/>please step away');
-        $('.alert').css('opacity', '1');
-        // clearTimeout(movementTimer);
-        setTimeout(() => {
-            $('.alert').css('opacity', '0');
-            startMovement(2000);
-        }, 5000);
+    $('#stopBtn').click(() => {
+        stopCamera();
     })
 
+    getCameraFeed();
 });
