@@ -26,8 +26,8 @@ function onConnect() {
         // Turn on the screen, but allow the screensaver to kick in later
         DRDoubleSDK.sendCommand("screensaver.nudge");
         // Enable the camera
-        DRDoubleSDK.sendCommand("camera.enable", { width: 1152, height: 720, template: 'h264ForWebRTC' });
-        // DRDoubleSDK.sendCommand("camera.enable", { width: 1152, height: 720, template: 'v4l2' });
+        // DRDoubleSDK.sendCommand("camera.enable", { width: 1152, height: 720, template: 'h264ForWebRTC' });
+        DRDoubleSDK.sendCommand("camera.enable", { width: 1152, height: 720, template: 'v4l2' });
         // Output from the camera
         DRDoubleSDK.sendCommand("camera.output", { template: 'v4l2', width: 1152, height: 720 });
 
