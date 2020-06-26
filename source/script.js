@@ -240,6 +240,9 @@ $(window).on('load', function () {
             }, 50 * jlen);
         }, 102 * ilen);
     }, 20 * alen + 800);
+    //         }, 0);
+    //     }, 0);
+    // }, 0);
 });
 
 $(document).ready(function () {
@@ -301,7 +304,7 @@ $(document).ready(function () {
         } else if (scrollTopNew <= offsetPage('.workPage') - 60) {
             changeHeaderColor(1);
         } else if (scrollTopNew <= offsetPage('.contactPage') - 60) {
-            changeHeaderColor(0);
+            changeHeaderColor(1);
         } else {
             changeHeaderColor(1);
         }
