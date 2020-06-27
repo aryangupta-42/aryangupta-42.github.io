@@ -157,13 +157,23 @@ function navToPage(page, home = 0, extra = 0) {
             'swing'
         );
     } else {
-        $('html,body').animate(
-            {
-                scrollTop: $(page).offset().top,
-            },
-            500,
-            'swing'
-        );
+        if (page == '.aboutPage') {
+            $('html,body').animate(
+                {
+                    scrollTop: $(page).offset().top - 60,
+                },
+                500,
+                'swing'
+            );
+        } else {
+            $('html,body').animate(
+                {
+                    scrollTop: $(page).offset().top,
+                },
+                500,
+                'swing'
+            );
+        }
     }
 }
 function offsetPage(page) {
