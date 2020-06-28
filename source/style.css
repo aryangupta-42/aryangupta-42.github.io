@@ -14,10 +14,16 @@ body {
 }
 
 :root {
-    --theme-color: #4066dc;
+    --theme-color: rgb(64, 102, 220);
     /* #516fcb */
 }
-
+#can {
+    position: absolute;
+    bottom: 80px;
+    left: 0px;
+    right: 0px;
+    z-index: -10;
+}
 /* ::-webkit-scrollbar {
   width: 5px;
   background-color: rgba(255,255,255,0.3);
@@ -311,12 +317,13 @@ body {
         flex-direction: column;
     }
     .imgContainer {
-        height: 45%;
+        height: 50%;
     }
     .meImg {
         min-width: 350px;
     }
     .detContainer {
+        height: 50%;
         align-items: center;
         justify-content: flex-start;
         padding: 0px;
