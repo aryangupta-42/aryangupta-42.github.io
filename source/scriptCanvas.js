@@ -223,6 +223,7 @@ window.spectrum = {
     lineTgrad: [0.0009, 0.002, 0.002],
     lineWidth: [2.3, 1, 4],
     bg: '#fff',
+    animate: true,
     setSize: function () {
         spectrum.can.width = $(window).width();
         spectrum.can.height = spectrum.canHeight;
@@ -290,7 +291,15 @@ window.spectrum = {
             }
             ctx.stroke();
         }
-        window.requestAnimationFrame(spectrum.render);
+        if (spectrum.animate) {
+            window.requestAnimationFrame(spectrum.render);
+        }
+    },
+    setAnimation: function (val) {
+        if (spectrum.animate !== val) {
+            spectrum.animate = val;
+            spectrum.render();
+        }
     },
 };
 
@@ -305,4 +314,12 @@ $(document).ready(() => {
     spectrum.init();
     spectrum.createLines();
     spectrum.render();
+    $(document).scroll(function () {
+        var scrollTop = $(document).scrollTop();
+        if (scrollTop > $('.aboutPage').offset().top + 100) {
+            spectrum.setAnimation(false);
+        } else {
+            spectrum.setAnimation(true);
+        }
+    });
 });

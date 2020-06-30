@@ -160,7 +160,7 @@ function navToPage(page, home = 0, extra = 0) {
         if (page == '.aboutPage') {
             $('html,body').animate(
                 {
-                    scrollTop: $(page).offset().top - 60,
+                    scrollTop: $(page).offset().top - 50,
                 },
                 500,
                 'swing'
@@ -188,71 +188,48 @@ function appear(element) {
 }
 
 $(window).on('load', function () {
-    var a = 0,
-        alen = 110,
-        k = 0;
-    function loadAnim() {
-        if (a <= 100) {
-            k = a;
-        }
-        $('.loadingPageBack').css('width', a + '%');
-        $('.loadingPageBack').css('left', 50 - k / 2 + '%');
-        a++;
-        if (a < alen) {
-            setTimeout(loadAnim, 15);
+    $('.loadingPage').css({
+        opacity: '0',
+        transform: 'translateY(-60px)',
+    });
+    setTimeout(function () {
+        $('.loadingPage').css('display', 'none');
+        appear('.meImg');
+    }, 310);
+
+    var titleString = "Hi, I'm Aryan Gupta";
+    var displayTitleString = [];
+
+    var subTitleString = 'Designer | Developer';
+    var displaySubTitleString = [];
+
+    var i = 0,
+        ilen = titleString.length;
+    function nameAnimate() {
+        displayTitleString.push(titleString[i]);
+        $('.detName').html(displayTitleString);
+        i++;
+        if (i < ilen) {
+            setTimeout(nameAnimate, 100);
         }
     }
-    loadAnim();
-
+    nameAnimate();
     setTimeout(function () {
-        $('.loadingPage2').css({
-            opacity: '0',
-            transform: 'translateY(-60px)',
-        });
-        setTimeout(function () {
-            $('.loadingPage2').css('display', 'none');
-        }, 305);
-        setTimeout(function () {
-            appear('.meImg');
-        }, 400);
-
-        var titleString = "Hi, I'm Aryan Gupta";
-        var displayTitleString = [];
-
-        var subTitleString = 'Designer | Developer';
-        var displaySubTitleString = [];
-
-        var i = 0,
-            ilen = titleString.length;
-        function nameAnimate() {
-            displayTitleString.push(titleString[i]);
-            $('.detName').html(displayTitleString);
-            i++;
-            if (i < ilen) {
-                setTimeout(nameAnimate, 100);
+        var j = 0,
+            jlen = subTitleString.length;
+        function subAnim() {
+            displaySubTitleString.push(subTitleString[j]);
+            $('.detCaption').html(displaySubTitleString);
+            j++;
+            if (j < jlen) {
+                setTimeout(subAnim, 50);
             }
         }
-        nameAnimate();
+        subAnim();
         setTimeout(function () {
-            var j = 0,
-                jlen = subTitleString.length;
-            function subAnim() {
-                displaySubTitleString.push(subTitleString[j]);
-                $('.detCaption').html(displaySubTitleString);
-                j++;
-                if (j < jlen) {
-                    setTimeout(subAnim, 50);
-                }
-            }
-            subAnim();
-            setTimeout(function () {
-                appear('.learnBtn');
-            }, 50 * jlen);
-        }, 102 * ilen);
-    }, 20 * alen + 800);
-    //         }, 0);
-    //     }, 0);
-    // }, 0);
+            appear('.learnBtn');
+        }, 50 * jlen);
+    }, 110 * ilen);
 });
 
 $(document).ready(function () {
