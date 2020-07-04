@@ -25,9 +25,30 @@
                 display: inline-block;
                 vertical-align: top;
             }
+            #video {
+                background: black;
+                bottom: 0px;
+                display: block;
+                height: 100%;
+                left: 0px;
+                object-fit: contain;
+                right: 0px;
+                top: 0px;
+                width: auto;
+                transform: scaleX(-1);
+                position: fixed;
+                visibility: hidden;
+            }
+            #output {
+                /* transform: scaleX(-1); */
+                /* -webkit-transform: scaleX(-1); */
+            }
             .commandInfoContainer {
+                position: fixed;
+                bottom: 20px;
+                left: calc(10% - 20px);
                 min-width: 350px;
-                width: 70%;
+                width: 80%;
                 padding: 20px;
                 background-color: rgba(0, 0, 0, 0.7);
                 color: white;
@@ -42,36 +63,18 @@
         <div id="info" style="display: none;"></div>
         <div id="predictions"></div>
         <div id="canvas-wrapper">
+            <video id="video" playsinline autoplay></video>
             <canvas id="output"></canvas>
-            <video
-                id="video"
-                playsinline
-                autoplay
-                style="
-                    -webkit-transform: scaleX(-1);
-                    transform: scaleX(-1);
-                    visibility: hidden;
-                    display: none;
-                    width: auto;
-                    height: auto;
-                    position: absolute;
-                "
-            ></video>
         </div>
         <div class="commandInfoContainer">
             <div class="generalInfo">
                 <b>Information:</b>
-                <span
-                    >General information for the usre geos here and some other
-                    text alet tomake the information long</span
-                >
+                <span>LOADING...PLEASE WAIT</span>
             </div>
             <div class="handStatus">
-                <b>Hand Status: (open/close) </b> <span>open</span>
+                <b>Hand Status: (open/close) </b> <span>-</span>
             </div>
-            <div class="handGesture">
-                <b>Hand Gesture: </b><span>hand gesture goes here</span>
-            </div>
+            <div class="handGesture"><b>Hand Gesture: </b><span>-</span></div>
             <div class="gestureStatus">
                 <b>Gesture Status: </b><span>Command sttus goes here</span>
             </div>

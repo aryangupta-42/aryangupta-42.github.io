@@ -25,14 +25,6 @@ const state = {
     backend: 'webgl',
 };
 
-function setupDatGui() {
-    const gui = new dat.GUI();
-    gui.add(state, 'backend', ['wasm', 'webgl', 'cpu', 'webgpu']).onChange(
-        async (backend) => {
-            await tf.setBackend(backend);
-        }
-    );
-}
 function drawPoint(ctx, y, x, r) {
     ctx.beginPath();
     ctx.arc(x, y, r, 0, 2 * Math.PI);
@@ -122,9 +114,81 @@ const main = async () => {
     landmarksRealTime(video);
 };
 
-const landmarksRealTime = async (video) => {
-    setupDatGui();
+const gestureModel = {
+    xinit: -1,
+    yinit: -1,
+    xfin: -1,
+    yfin: -1,
+    active: false,
+    process: false,
+    noRecog: false,
+    // process: false // to be used to ensure that the robot command has been performed completly
+};
 
+const checkFingerWrap = (fingerAnnotation) => {
+    if (fingerAnnotation[1][1] < fingerAnnotation[3][1]) {
+        return true;
+    }
+    return false;
+};
+
+const checkHandStatus = (annotations, checkType) => {
+    const { indexFinger, ringFinger, middleFinger, pinky } = annotations;
+
+    if (checkType === 'close') {
+        let close = true;
+        if (
+            !checkFingerWrap(indexFinger) ||
+            !checkFingerWrap(middleFinger) ||
+            !checkFingerWrap(ringFinger) ||
+            !checkFingerWrap(pinky)
+        ) {
+            close = false;
+        }
+        return close;
+    } else if (checkType === 'open') {
+        let open = true;
+        if (
+            checkFingerWrap(indexFinger) ||
+            checkFingerWrap(middleFinger) ||
+            checkFingerWrap(ringFinger) ||
+            checkFingerWrap(pinky)
+        ) {
+            open = false;
+        }
+        return open;
+    }
+};
+
+const getHandCenter = (annotations) => {
+    const {
+        indexFinger,
+        middleFinger,
+        ringFinger,
+        pinky,
+        palmBase,
+    } = annotations;
+    let xtopAvg =
+        (indexFinger[0][0] +
+            middleFinger[0][0] +
+            ringFinger[0][0] +
+            pinky[0][0]) /
+        4;
+    let ytopAvg =
+        (indexFinger[0][1] +
+            middleFinger[0][1] +
+            ringFinger[0][1] +
+            pinky[0][1]) /
+        4;
+
+    let xAvg = (xtopAvg + palmBase[0][0]) / 2;
+    let yAvg = (ytopAvg + palmBase[0][1]) / 2;
+    return { x: xAvg, y: yAvg };
+};
+
+const minGestureTime = 5;
+
+const landmarksRealTime = async (video) => {
     videoWidth = video.videoWidth;
     videoHeight = video.videoHeight;
 
@@ -144,7 +208,9 @@ const landmarksRealTime = async (video) => {
 
     ctx.translate(canvas.width, 0);
     ctx.scale(-1, 1);
-
+    let timer;
+    let timerActive = false;
+    let timerCount = 0;
     async function frameLandmarks() {
         ctx.drawImage(
             video,
@@ -159,8 +225,102 @@ const landmarksRealTime = async (video) => {
         );
         const predictions = await model.estimateHands(video);
         if (predictions.length > 0) {
-            const result = predictions[0].landmarks;
-            drawKeypoints(ctx, result, predictions[0].annotations);
+            const landmarkResult = predictions[0].landmarks;
+            const annotationResult = predictions[0].annotations;
+            const baseCoor = landmarkResult[0];
+            if (checkHandStatus(annotationResult, 'close')) {
+                $('.commandInfoContainer .handStatus span').html('Closed');
+                if (!gestureModel.active) {
+                    if (!timerActive) {
+                        timerCount = 0;
+                        timer = setInterval(() => {
+                            timerCount += 1;
+                            $('.commandInfoContainer .generalInfo span').html(
+                                `Timer started! Keep hand closed for ${
+                                    minGestureTime - timerCount
+                                } more seconds to begin gesture tracking or open your hand to stop gesture`
+                            );
+                        }, 1000);
+                        $('.commandInfoContainer .generalInfo span').html(
+                            'Timer started! Keep hand closed for 5 more seconds to begin gesture tracking or open your hand to stop gesture'
+                        );
+                        timerActive = true;
+                    } else {
+                        if (timerCount > minGestureTime) {
+                            clearInterval(timer);
+                            timerActive = false;
+                            gestureModel.active = true;
+                            const handInitCoor = getHandCenter(
+                                annotationResult
+                            );
+                            gestureModel.xinit = handInitCoor.x;
+                            gestureModel.yinit = handInitCoor.y;
+                        }
+                    }
+                } else {
+                    clearInterval(timer);
+                    timerActive = false;
+                    $('.commandInfoContainer .generalInfo span').html(
+                        'Gesture is being tracked, open your hand to finish gesture'
+                    );
+                }
+            } else if (checkHandStatus(annotationResult, 'open')) {
+                $('.commandInfoContainer .handStatus span').html('Open');
+                if (gestureModel.active) {
+                    if (!timerActive) {
+                        timerCount = 0;
+                        timer = setInterval(() => {
+                            timerCount += 1;
+                            $('.commandInfoContainer .generalInfo span').html(
+                                `Timer started! Keep hand open for ${
+                                    minGestureTime - timerCount
+                                } more seconds to finish gesture or close hand to update gesture tracking`
+                            );
+                        }, 1000);
+                        $('.commandInfoContainer .generalInfo span').html(
+                            `Timer started! Keep hand open for ${
+                                minGestureTime - timerCount
+                            } more seconds to finish gesture or close hand to update gesture tracking`
+                        );
+                        timerActive = true;
+                    } else {
+                        if (timerCount > minGestureTime) {
+                            clearInterval(timer);
+                            timerActive = false;
+                            const handFinCoor = getHandCenter(annotationResult);
+                            gestureModel.xfin = handFinCoor.x;
+                            gestureModel.yfin = handFinCoor.y;
+                            console.log(gestureModel);
+                            gestureModel.active = false;
+                        }
+                    }
+                } else {
+                    clearInterval(timer);
+                    timerActive = false;
+                    $('.commandInfoContainer .generalInfo span').html(
+                        'No gesture currently in progress, close your hand to begin gesture tracking'
+                    );
+                }
+            } else {
+                // hand is neither closed nor open;
+                clearInterval(timer);
+                timerActive = false;
+                $('.commandInfoContainer .generalInfo span').html(
+                    'No gesture currently in progress, close your hand to begin gesture tracking'
+                );
+            }
+            drawKeypoints(ctx, landmarkResult, predictions[0].annotations);
+        } else {
+            if (!gestureModel.active) {
+                clearInterval(timer);
+                timerActive = false;
+                $('.commandInfoContainer .generalInfo span').html(
+                    'No hand detected'
+                );
+                $('.commandInfoContainer .handStatus span').html(
+                    'No hand detected'
+                );
+            }
         }
         requestAnimationFrame(frameLandmarks);
     }
