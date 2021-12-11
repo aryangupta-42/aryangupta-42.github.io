@@ -581,7 +581,7 @@ body {
     /* border: 2px solid rgba(25, 31, 36, 0.6); */
     width: 300px;
     min-height: 280px;
-    height: 345px;
+    height: 325px;
     margin-left: 10px;
     margin-right: 10px;
     padding: 30px;
@@ -887,9 +887,9 @@ body {
 }
 /* -------------------------------------------------------------- */
 .contactPage {
-    /* padding-bottom: 130px; */
+    padding-bottom: 130px;
     overflow-x: hidden;
-    background-image: url('../images/PortfolioBack.svg');
+    /* background-image: url('../images/PortfolioBack.svg'); */
     background-repeat: no-repeat;
     background-size: contain;
     background-size: cover;
@@ -988,8 +988,8 @@ body {
     padding-right: 10px;
 }
 .contactFieldName {
-    /* color: var(--theme-color); */
-    color: #e6e6e6;
+    color: var(--theme-color);
+    /* color: #e6e6e6; */
     font-weight: 600;
     text-transform: uppercase;
     margin-left: 10px;
